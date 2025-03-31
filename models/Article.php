@@ -1,12 +1,22 @@
 <?php
 class Article extends Model {
+<<<<<<< HEAD
+    private $rssUrls = [ // try to make this work with DB
+=======
     private $rssUrls = [
+>>>>>>> 38c97c2a7c21885c6f0ca7ab019c19a977e8285c
         "cinema"     => "https://www.allocine.fr/rss/news.xml",
         "jeux-video" => "https://www.jeuxvideo.com/rss/rss.xml",
         "anime"      => "https://news.google.com/rss/search?tbm=nws&q=manga&oq=manga&scoring=n&hl=fr&gl=FR&ceid=FR:fr",
         "comics"     => "https://www.comicbookmovie.com/rss/",
     ];
 
+<<<<<<< HEAD
+    public function get_articles(){
+        
+    }
+
+=======
     public function getArticles($category = 'all') {
         $articles = [];
         $urls = $category === 'all' ? array_values($this->rssUrls) : [$this->rssUrls[$category]];
@@ -42,5 +52,6 @@ class Article extends Model {
         }
         return $articles;
     }
+>>>>>>> 38c97c2a7c21885c6f0ca7ab019c19a977e8285c
 }
 
