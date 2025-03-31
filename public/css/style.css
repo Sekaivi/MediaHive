@@ -1,0 +1,205 @@
+/* Styles de base */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+/* Barre de navigation */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #333;
+  padding: 10px 20px;
+  padding-top: 10px ;
+  color: #fff;
+}
+.logo {
+  /* On peut ajuster la hauteur du logo */
+  display: flex;
+  align-items: center;
+}
+.site-logo {
+  height: 40px; /* Ajustez selon vos besoins */
+  width: auto;
+}
+.search-container {
+  flex: 1;
+  margin: 0 20px;
+}
+.search-container input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 3px;
+}
+.nav-buttons button {
+  background-color: #FFE009;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  margin-left: 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.nav-buttons button:hover {
+  background-color: #777;
+}
+
+/* Conteneur d'articles */
+#newsContainer {
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Carte d'article */
+/* Styles de base pour la carte d'article */
+.article-card {
+  width: 320px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  position: relative;
+}
+
+/* Conteneur des boutons d'action */
+.action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-top: 1px solid #eee;
+  padding-top: 8px;
+  margin-top: auto;
+}
+
+/* Style de base des boutons */
+.action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Style de base pour les icônes */
+.btn-icon {
+  width: 32px;
+  height: 32px;
+  display: block;
+}
+
+.article-card img.article-image {
+  margin: 10px auto 0;
+  width: 90%;
+  height: auto;
+  display: block;
+  border-radius: 5px;
+}
+
+/* Section mots clés */
+.keywords-section {
+  margin-top: 10px;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+.add-keywords-btn {
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+  margin-bottom: 5px;
+}
+.available-keywords {
+  display: none;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+.available-keywords span {
+  background: #f1f1f1;
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-size: 0.8em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.available-keywords span:hover {
+  background: #ddd;
+}
+.keywords-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.keywords-list span {
+  background: #e2e2e2;
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-size: 0.8em;
+}
+
+/* Contenu de l'article */
+.article-content {
+  padding: 10px 0;
+}
+.article-title {
+  font-size: 1.2em;
+  margin: 0 0 8px;
+}
+.article-description {
+  font-size: 0.95em;
+  color: #555;
+  margin: 0 0 10px;
+}
+
+/* Boutons d'action en bas de la carte */
+.action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-top: 1px solid #eee;
+  padding-top: 8px;
+  margin-top: auto;
+}
+
+/* Boutons d'action basés sur des images PNG */
+.action-btn {
+  width: 32px;
+  height: 32px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+}
+
+  .action-btn .view-btn{
+  width: 84px;
+  height: 32px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  display: flex;
+  border: none;
+  cursor: pointer;
+}
+    form {
+      display: inline-block;
+      text-align: left;
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
