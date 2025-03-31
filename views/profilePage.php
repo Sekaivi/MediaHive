@@ -1,10 +1,24 @@
-// profile pic
+<?php $title = $profile ?>
 
 <img src="<?= $source ?? '' ?>" alt="profile picture of <?= htmlspecialchars($_SESSION['username']) ?>"/>
 
 <h1><?= htmlspecialchars($user['username']) ?></h1>
 
 <p><?= htmlspecialchars($user['bio']) ?></p>
+
+<p>Feed list</p>
+<ul>
+    <?php foreach($rssFeeds as $feed): ?>
+        <li><?= htmlspecialchars($feed['feedName']) ?></li>
+    <?php endforeach; ?>
+</ul>
+
+<p>Your preferences:</p>
+<ul>
+    <?php foreach($preferences as $feed): ?>
+        <li><?= htmlspecialchars($feed['feedName']) ?></li>
+    <?php endforeach; ?>
+</ul>
 
 
 

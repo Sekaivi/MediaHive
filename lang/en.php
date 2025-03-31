@@ -12,6 +12,8 @@ return [
     "notRegisteredQ" => "Not registered yet?",
     "registeredQ" => "Already have an account?",
     "signUp" => "Sign up",
+    "signOut" => "Sign Out",
+    "profile" => "Profile",
     "username" => "Username",
     "formError" => "Credentials are incorrect",
     "registerError" => "E-mail already exists",

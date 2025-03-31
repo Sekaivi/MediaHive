@@ -60,7 +60,15 @@ class User extends Model
     }
 
     public function preferences($user_id){
-        
+        try {
+            $sql = "SELECT * FROM preferences where userID = :id";
+            $rqt = $this->cnxDB->prepare($sql);
+            $rqt->execute(["id" => $user_id]);
+            $data = $rqt->fetch();
+        } catch (PDOException $e) {
+            echo "PDO error: " . $e->getMessage();
+        }
+        return $data;
     }
 
 }

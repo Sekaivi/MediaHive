@@ -10,6 +10,7 @@
 </head>
 
 <body>
+
   <header>
   <nav class="navbar">
     <div class="logo"><img class="site-logo" src="public/images/LOGO.png"></div>
@@ -18,11 +19,11 @@
     </div>
     <div class="nav-buttons">
       <?php if(isset($_SESSION['user_id'])): ?>
-        <span>Bonjour, <?= htmlspecialchars($_SESSION['username']) ?></span>
-        <button onclick="location.href='index.php?page=logout'">Déconnexion</button>
+        <button onclick="location.href='<?= BASE_URL ?>/logout'"><?= htmlspecialchars($signOut ?? "error") ?></button>
+        <button onclick="location.href='<?= BASE_URL ?>/profile'"><?= htmlspecialchars($profile ?? "error") ?></button>
       <?php else: ?>
-        <button onclick="location.href='index.php?page=login'">Connexion</button>
-        <button onclick="location.href='index.php?page=register'">Inscription</button>
+        <button onclick="location.href='<?= BASE_URL ?>/signin'"><?= htmlspecialchars($signIn ?? "error") ?></button>
+        <button onclick="location.href='<?= BASE_URL ?>/signup'"><?= htmlspecialchars($signUp ?? "error") ?></button>
       <?php endif; ?>
       <button>Langue</button>
     </div>

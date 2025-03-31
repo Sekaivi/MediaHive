@@ -36,8 +36,10 @@ $router->addRoute('GET', "/", 'ArticleController@index');
 $router->addRoute('GET', "/signin", 'SignInController@signin_form');
 $router->addRoute('POST', "/signin", 'SignInController@handleConnexion');
 
-  $router->addRoute('GET', "/signup", 'SignUpController@signup_form');
-  $router->addRoute('POST', "/signup", 'SignUpController@handleSignup');
+$router->addRoute('GET', "/signup", 'SignUpController@signup_form');
+$router->addRoute('POST', "/signup", 'SignUpController@handleSignup');
+
+$router->addRoute('GET', "/logout", 'SignOutController@handle_signout');
 
 $router->addRoute('GET', "/profile", 'ProfileController@display_profile');
 
