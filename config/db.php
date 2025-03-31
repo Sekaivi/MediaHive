@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
 
 define('DB_HOST', 'localhost');    // Database server address
@@ -12,19 +11,4 @@ define('PDO_OPTIONS', [
     PDO::ATTR_EMULATE_PREPARES => false,  // Disable emulated prepared statements for security
 ]);
 
-=======
-<?php
-
-define('DB_HOST', 'localhost');    // Database server address
-define('DB_NAME', 'pop_culture_db'); // Name of the database
-define('DB_USER', 'sekai');  // Database username
-define('DB_PASSWORD', 'flap2004');  // Database password
-define("DB_DSN" , 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';') ;
-define('PDO_OPTIONS', [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,  // Enable error mode
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,  // Set default fetch mode to associative arrays
-    PDO::ATTR_EMULATE_PREPARES => false,  // Disable emulated prepared statements for security
-]);
-
->>>>>>> 38c97c2a7c21885c6f0ca7ab019c19a977e8285c
 ?>

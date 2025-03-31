@@ -1,0 +1,15 @@
+# Enable URL rewriting
+RewriteEngine On
+
+# Set the base URL for rewrites
+RewriteBase /MediaHive/
+
+# Redirect all requests that are not actual files or directories to index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?route=$1 [QSA,L]
+
+# Allow CORS (optional, if your API needs it)
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>
