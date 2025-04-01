@@ -31,18 +31,37 @@ if (!in_array($lang, $supportedLanguages)) {
 $t = Translation::getInstance();
 $t->setLanguage($lang);
 
-$router->addRoute('GET', "/", 'ArticleController@index');
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset(($_POST['routeAjax']))) {
+  $action = $_POST['routeAjax'] ;
+  switch($action){
+    case 'updateProfile':
+      $controller = new ProfileController($cnxDB);
+      $controller->update_profile();
+      break ;
+      default:
+      echo json_encode([
+        'success' => false,
+        'message' => 'undefined AJAX route'
+      ]);
 
-$router->addRoute('GET', "/signin", 'SignInController@signin_form');
-$router->addRoute('POST', "/signin", 'SignInController@handleConnexion');
+  }
+  
+} else {
+  $router->addRoute('GET', "/", 'ArticleController@index');
 
-$router->addRoute('GET', "/signup", 'SignUpController@signup_form');
-$router->addRoute('POST', "/signup", 'SignUpController@handleSignup');
+  $router->addRoute('GET', "/signin", 'SignInController@signin_form');
+  $router->addRoute('POST', "/signin", 'SignInController@handleConnexion');
 
-$router->addRoute('GET', "/logout", 'SignOutController@handle_signout');
+  $router->addRoute('GET', "/signup", 'SignUpController@signup_form');
+  $router->addRoute('POST', "/signup", 'SignUpController@handleSignup');
 
-$router->addRoute('GET', "/profile", 'ProfileController@display_profile');
+  $router->addRoute('GET', "/logout", 'SignOutController@handle_signout');
 
-$router->resolve();
+  $router->addRoute('GET', "/profile", 'ProfileController@display_profile');
+  $router->addRoute('POST', "/profile/update", 'ProfileController@update_profile');
+
+  $router->resolve();
+}
+
 
 ?>

@@ -59,16 +59,50 @@ class User extends Model
         }
     }
 
-    public function preferences($user_id){
+    public function preferences($user_id)
+    {
         try {
-            $sql = "SELECT * FROM preferences where userID = :id";
+            $sql = "SELECT f.feedName FROM preferences p JOIN rssfeeds f 
+            ON p.rss_feed = f.feedID WHERE p.userID = :id ;";
             $rqt = $this->cnxDB->prepare($sql);
             $rqt->execute(["id" => $user_id]);
-            $data = $rqt->fetch();
+            $data = $rqt->fetchAll();
         } catch (PDOException $e) {
             echo "PDO error: " . $e->getMessage();
         }
         return $data;
+    }
+
+    public function bookmarks($user_id)
+    {
+        try {
+            $sql = "SELECT a.* FROM bookmarks b JOIN articles a ON b.articleID = a.articleID WHERE b.userID = :id;";
+            $rqt = $this->cnxDB->prepare($sql);
+            $rqt->execute(["id" => $user_id]);
+            $data = $rqt->fetchAll();
+        } catch (PDOException $e) {
+            echo "PDO error: " . $e->getMessage();
+        }
+        return $data;
+    }
+
+    public function update_user($user)
+    {
+        try {
+            $sql = "UPDATE users SET username = :username , email = :email , profilePicture = :profilePicture , bio = :bio
+            WHERE userID = :user_id ";
+            $rqt = $this->cnxDB->prepare($sql);
+            $success = $rqt->execute($user);
+            return [
+                'success' => $success,
+                'message' => $success ? "Profile updated successfully" : "No changes made"
+            ];
+        } catch (PDOException $e) {
+            return [
+                'success' => false,
+                'message' => "PDO error: " . $e->getMessage()
+            ];
+        }
     }
 
 }

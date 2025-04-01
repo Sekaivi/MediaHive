@@ -17,7 +17,13 @@ return [
     "username" => "Username",
     "formError" => "Credentials are incorrect",
     "registerError" => "E-mail already exists",
-    "home" => "Home"
+    "home" => "Home",
+
+    // profilePage
+    "noPreferences" => "You don't have any preferences set.",
+    "noBookmarks" => "You don't have any bookmarks",
+    "preferences" => "Preferences",
+    "bookmarks" => "Bookmarks"
 
     //
 ];
