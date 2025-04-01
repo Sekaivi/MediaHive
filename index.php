@@ -32,20 +32,27 @@ $t = Translation::getInstance();
 $t->setLanguage($lang);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset(($_POST['routeAjax']))) {
-  $action = $_POST['routeAjax'] ;
-  switch($action){
+  $action = $_POST['routeAjax'];
+  switch ($action) {
+
     case 'updateProfile':
       $controller = new ProfileController($cnxDB);
       $controller->update_profile();
-      break ;
-      default:
+      break;
+
+    case 'updatePreferences':
+      $controller = new ProfileController($cnxDB);
+      $controller->update_preferences();
+      break;
+
+    default:
       echo json_encode([
         'success' => false,
         'message' => 'undefined AJAX route'
       ]);
 
   }
-  
+
 } else {
   $router->addRoute('GET', "/", 'ArticleController@index');
 

@@ -41,16 +41,26 @@ class ProfileController extends BaseController
             ];
             $result = $this->userModel->update_user($user);
             header('Content-Type: application/json');
-            if($result['success']){
+            if ($result['success']) {
                 echo json_encode([
-                    "success" => true,
-                    "message" => "Fetch request is working!",
-                    "username" => $_POST['username']
+                    "success" => true, 'user'=>$user
                 ]);
             }
-           
         }
+        unset($_POST) ;
+    }
 
+
+    public function update_preferences(){
+        if (isset($_POST) && !empty($_POST)) {
+            $newFeed = $_POST['feed-list'] ; // vaut mieux recuperer l'id exact. Ce sera mieux pour les manipulations
+            // rec
+            // mettre à jour les preferences dans la BD + handle errors 'gracefully' LOLZ
+            // renvoyer au js pour que ce soit visualisable ONLY IF NO ERRORRRS
+            // PENSER A AJOUTER UNE MAMNIERE D'ENLEVER UN FEED
+            echo json_encode(["success" => true,]);
+        }
+        unset($_POST) ;
     }
 
 }

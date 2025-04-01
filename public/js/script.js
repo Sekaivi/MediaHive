@@ -44,8 +44,8 @@ let feedList = document.getElementById("feed-list");
 // ajax to update preferences
 feedForm.addEventListener("submit", function (evt) {
     evt.preventDefault();
-    let formData = new FormData(profileForm); // Use the correct form reference
-    formData.append("routeAjax", "updateProfile");
+    let formData = new FormData(feedForm);
+    formData.append("routeAjax", "updatePreferences");
     fetch("index.php", {
         method: "POST",
         body: formData
@@ -57,15 +57,9 @@ feedForm.addEventListener("submit", function (evt) {
         })
         .then(data => {
             if (data.success) {
-                let user = data['user'];
-                document.getElementById("username").textContent = user.username;
-                document.getElementById("profilePicture").src = user.profilePicture;
-                document.getElementById("bio").textContent = user.bio;
-                document.getElementById("message").textContent = "Profile updated successfully!";
-                profileInfo.style.display = "block";
-                profileForm.style.display = "none";
+                console.log('success !');
             } else {
-                document.getElementById("message").textContent = "Error while updating the profile";
+                document.getElementById("message").textContent = "Error while updating preferences";
             }
         })
         .catch(error => console.error("Error:", error));

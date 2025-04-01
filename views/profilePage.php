@@ -13,6 +13,19 @@
     <button id="edit-profile"><?= $editProfile ?></button>
 
     <p><?= $preferences ?></p>
+    <form id="feed-form">
+        <label for="feed-search">Search Feed</label>
+        <input type="text" id="feed-search" placeholder="Search feeds..." autocomplete="off">
+
+        <label for="feed-list">Feed list</label>
+        <select id="feed-list" name="feed-list">
+            <?php foreach ($rssFeeds as $feed): ?>
+                <option value="<?= htmlspecialchars($feed['feedName']) ?>"><?= htmlspecialchars($feed['feedName']) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+        <button type="submit">Save</button>
+    </form>
     <ul>
         <?php if (empty($setPrefs)): ?>
             <p><?= htmlspecialchars($noPreferences) ?></p>
@@ -22,7 +35,7 @@
             <?php endforeach; ?>
         <?php endif; ?>
     </ul>
-    <button id="edit-feeds">Edit preferences</button>
+
 
     <p><?= $bookmarks ?></p>
 
@@ -47,17 +60,3 @@
 </form>
 
 <p id="message"></p>
-
-
-<form id="feed-form">
-    <label for="feed-search">Search Feed</label>
-    <input type="text" id="feed-search" placeholder="Search feeds..." autocomplete="off">
-
-    <label for="feed-list">Feed list</label>
-    <select id="feed-list" name="feed-list">
-        <?php foreach ($rssFeeds as $feed): ?>
-            <option value="<?= htmlspecialchars($feed['feedName']) ?>"><?= htmlspecialchars($feed['feedName']) ?></option>
-        <?php endforeach; ?>
-    </select>
-    <button type="submit">Save</button>
-</form>
