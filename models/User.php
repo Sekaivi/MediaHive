@@ -105,6 +105,27 @@ class User extends Model
         }
     }
 
+    public function update_preferences($user_id , $feedID)
+    {
+        try {
+            $sql = "INSERT INTO preferences (userID, rss_feed) VALUES (:user, :feed);";
+            $rqt = $this->cnxDB->prepare($sql);
+            $success = $rqt->execute([
+                'user'=>$user_id,
+                'feed'=>$feedID
+            ]);
+            return [
+                'success' => $success,
+                'message' => $success ? "Preferences updated" : "No changes made"
+            ];
+        } catch (PDOException $e) {
+            return [
+                'success' => false,
+                'message' => "PDO error: " . $e->getMessage()
+            ];
+        }
+    }
+
 }
 
 ?>

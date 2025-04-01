@@ -43,24 +43,38 @@ class ProfileController extends BaseController
             header('Content-Type: application/json');
             if ($result['success']) {
                 echo json_encode([
-                    "success" => true, 'user'=>$user
+                    "success" => true,
+                    'user' => $user
                 ]);
             }
         }
-        unset($_POST) ;
+        unset($_POST);
     }
 
 
-    public function update_preferences(){
+    public function update_preferences()
+    {
         if (isset($_POST) && !empty($_POST)) {
-            $newFeed = $_POST['feed-list'] ; // vaut mieux recuperer l'id exact. Ce sera mieux pour les manipulations
-            // rec
-            // mettre à jour les preferences dans la BD + handle errors 'gracefully' LOLZ
-            // renvoyer au js pour que ce soit visualisable ONLY IF NO ERRORRRS
+            $feedID = $_POST['feedID'];
+            $feedName = $_POST['feedName'];
+            $user_id = $_SESSION['user_id'];
+            $result = $this->userModel->update_preferences($user_id, $feedID);
+            header('Content-Type: application/json');
+            if ($result['success']) {
+                echo json_encode([
+                    "success" => true,
+                    'feed' => $feedName
+                ]);
+                return;
+            } else {
+                echo json_encode($result);
+                return;
+            }
+            // max 6 avec user dedans...
+            // mettre à jour les preferences dans la BD + handle errors 'gracefully' LOLZ genre can't select something you already have ma dude
             // PENSER A AJOUTER UNE MAMNIERE D'ENLEVER UN FEED
-            echo json_encode(["success" => true,]);
         }
-        unset($_POST) ;
+        unset($_POST);
     }
 
 }

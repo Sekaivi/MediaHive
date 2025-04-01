@@ -20,13 +20,15 @@
         <label for="feed-list">Feed list</label>
         <select id="feed-list" name="feed-list">
             <?php foreach ($rssFeeds as $feed): ?>
-                <option value="<?= htmlspecialchars($feed['feedName']) ?>"><?= htmlspecialchars($feed['feedName']) ?>
+                <option value="<?= htmlspecialchars($feed['feedID']) ?>"
+                    data-name="<?= htmlspecialchars($feed['feedName']) ?>">
+                    <?= htmlspecialchars($feed['feedName']) ?>
                 </option>
             <?php endforeach; ?>
         </select>
         <button type="submit">Save</button>
     </form>
-    <ul>
+    <ul id="preferences-list">
         <?php if (empty($setPrefs)): ?>
             <p><?= htmlspecialchars($noPreferences) ?></p>
         <?php else: ?>

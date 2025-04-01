@@ -9,7 +9,7 @@ document.getElementById("edit-profile").addEventListener("click", function () {
 
 profileForm.addEventListener("submit", function (evt) {
     evt.preventDefault();
-    let formData = new FormData(profileForm); // Use the correct form reference
+    let formData = new FormData(profileForm);
     formData.append("routeAjax", "updateProfile");
     fetch("index.php", {
         method: "POST",
@@ -44,7 +44,13 @@ let feedList = document.getElementById("feed-list");
 // ajax to update preferences
 feedForm.addEventListener("submit", function (evt) {
     evt.preventDefault();
-    let formData = new FormData(feedForm);
+    selectedOption = feedList.options[feedList.selectedIndex];
+    // Get feedID and feedName
+    let feedID = selectedOption.value;
+    let feedName = selectedOption.getAttribute("data-name");
+    let formData = new FormData();
+    formData.append("feedID", feedID);
+    formData.append("feedName", feedName);
     formData.append("routeAjax", "updatePreferences");
     fetch("index.php", {
         method: "POST",
@@ -57,9 +63,12 @@ feedForm.addEventListener("submit", function (evt) {
         })
         .then(data => {
             if (data.success) {
-                console.log('success !');
+                let li = document.createElement('li');
+                li.textContent = data.feed;
+                let preferences = document.getElementById('preferences-list');
+                preferences.appendChild(li);
             } else {
-                document.getElementById("message").textContent = "Error while updating preferences";
+                console.log("Error while updating preferences");
             }
         })
         .catch(error => console.error("Error:", error));
