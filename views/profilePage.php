@@ -3,18 +3,14 @@
 
 <div id="profile-info">
 
-    <img src="<?= $source ?? '' ?>" alt="profile picture of <?= htmlspecialchars($_SESSION['username']) ?>" />
+    <img id="profilePicture" src="<?= $source ?? '' ?>"
+        alt="profile picture of <?= htmlspecialchars($_SESSION['username']) ?>" />
 
     <h1 id="username"><?= htmlspecialchars($user['username']) ?></h1>
 
-    <p><?= htmlspecialchars($user['bio']) ?></p>
+    <p id="bio"><?= htmlspecialchars($user['bio']) ?></p>
 
-    <p>Feed list</p>
-    <ul>
-        <?php foreach ($rssFeeds as $feed): ?>
-            <li><?= htmlspecialchars($feed['feedName']) ?></li>
-        <?php endforeach; ?>
-    </ul>
+    <button id="edit-profile"><?= $editProfile ?></button>
 
     <p><?= $preferences ?></p>
     <ul>
@@ -26,6 +22,7 @@
             <?php endforeach; ?>
         <?php endif; ?>
     </ul>
+    <button id="edit-feeds">Edit preferences</button>
 
     <p><?= $bookmarks ?></p>
 
@@ -37,13 +34,12 @@
         <?php endforeach; ?>
     <?php endif; ?>
 
-    <button id="edit-profile">Edit</button>
-
 </div>
 
 
 <form id="profile-form" style="display:none;">
-    <input type="text" name="profilePicture" id="input-profilePicture" value="<?= htmlspecialchars($user['profilePicture']) ?>">
+    <input type="text" name="profilePicture" id="input-profilePicture"
+        value="<?= htmlspecialchars($user['profilePicture']) ?>">
     <input type="text" name="username" id="input-username" value="<?= htmlspecialchars($user['username']) ?>" required>
     <input type="email" name="email" id="input-email" value="<?= htmlspecialchars($user['email']) ?>" required>
     <textarea name="bio" id="input-bio"><?= htmlspecialchars($user['bio']) ?></textarea>
@@ -51,3 +47,17 @@
 </form>
 
 <p id="message"></p>
+
+
+<form id="feed-form">
+    <label for="feed-search">Search Feed</label>
+    <input type="text" id="feed-search" placeholder="Search feeds..." autocomplete="off">
+
+    <label for="feed-list">Feed list</label>
+    <select id="feed-list" name="feed-list">
+        <?php foreach ($rssFeeds as $feed): ?>
+            <option value="<?= htmlspecialchars($feed['feedName']) ?>"><?= htmlspecialchars($feed['feedName']) ?></option>
+        <?php endforeach; ?>
+    </select>
+    <button type="submit">Save</button>
+</form>

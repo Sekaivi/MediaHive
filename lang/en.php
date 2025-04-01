@@ -23,7 +23,8 @@ return [
     "noPreferences" => "You don't have any preferences set.",
     "noBookmarks" => "You don't have any bookmarks",
     "preferences" => "Preferences",
-    "bookmarks" => "Bookmarks"
+    "bookmarks" => "Bookmarks",
+    "editProfile" => "Edit Profile"
 
     //
 ];
