@@ -186,7 +186,7 @@ body {
   cursor: pointer;
 }
 
-  .action-btn .view-btn{
+  .action-btn .view-btn , .view-img{
   width: 84px;
   height: 32px;
   background-size: contain;

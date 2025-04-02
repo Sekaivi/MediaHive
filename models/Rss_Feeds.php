@@ -56,6 +56,8 @@ class Rss_Feeds extends Model
                             'link' => (string) $item->link,
                             'description' => (string) $item->description,
                             'image' => $image,
+                            'sourceName' => $feed['feedName'],
+                            'sourceID' => $feed['feedID'],
                             'keywords' => [] // Initialement vide
                         ];
                     }

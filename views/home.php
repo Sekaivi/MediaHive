@@ -5,6 +5,8 @@
     <div class="article-card">
       <!-- Image centrée -->
       <img class="article-image" src="<?= $article['image'] ?>" alt="<?= htmlspecialchars($article['title']) ?>">
+      <p class="article-source"><?= htmlspecialchars($article['sourceName']) ?></p>
+      <div class="sourceID" style="display: none;"><?= htmlspecialchars($article['sourceID']) ?></div>
 
       <!-- Section mots clés -->
       <div class="keywords-section">
@@ -42,7 +44,7 @@
 
         <!-- Bouton Voir l'article -->
         <button class="action-btn view-btn" title="Voir l'article" data-link="<?= htmlspecialchars($article['link']) ?>">
-          <img src="public/images/link1.png" alt="Voir l'article" class="view-btn" data-hover="public/images/link2.png"
+          <img src="public/images/link1.png" alt="Voir l'article" class="view-img" data-hover="public/images/link2.png"
             data-clicked="public/images/link3.png">
         </button>
 
