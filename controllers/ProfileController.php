@@ -14,6 +14,10 @@ class ProfileController extends BaseController
 
     public function display_profile()
     {
+        if(!isset($_SESSION['logged_in'])){
+            header("Location:" . BASE_URL . "/signin");
+            exit;
+        }
         $data = $this->t->getAll();
         $user = $this->userModel->get_user_id($_SESSION['user_id']);
         $data['user'] = $user;

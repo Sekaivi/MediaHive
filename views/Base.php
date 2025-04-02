@@ -9,6 +9,7 @@
   <link rel="stylesheet" type="text/css" href="public/css/style.css" />
   <script src="public/js/profile.js" defer="defer"></script>
   <script src="public/js/article.js" defer="defer"></script>
+  <script src="public/js/search.js" defer="defer"></script>
 </head>
 
 <body>
@@ -17,7 +18,8 @@
   <nav class="navbar">
     <div class="logo"><img class="site-logo" src="public/images/LOGO.png"></div>
     <div class="search-container">
-      <input type="text" placeholder="Rechercher des actualités...">
+      <input id="searchbar" type="text" placeholder="Rechercher des actualités...">
+      <div id="search-results"></div>
     </div>
     <div class="nav-buttons">
       <?php if(isset($_SESSION['user_id'])): ?>

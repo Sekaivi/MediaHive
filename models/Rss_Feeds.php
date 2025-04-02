@@ -29,43 +29,6 @@ class Rss_Feeds extends Model
         return $data;
     }
 
-    public function get_articles($rssFeeds)
-    {
-        $articles = [];
-        foreach ($rssFeeds as $feed) {
-            $data = @file_get_contents($feed['feedURL']);
-            if ($data) {
-                $xml = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
-                if ($xml) {
-                    foreach ($xml->channel->item as $item) {
-                        // Gérer les namespaces pour media:content
-                        $namespaces = $item->getNameSpaces(true);
-                        $media = isset($namespaces['media']) ? $item->children($namespaces['media']) : null;
-
-                        // Récupérer l'image depuis <enclosure> ou <media:content>
-                        if (isset($item->enclosure['url'])) {
-                            $image = (string) $item->enclosure['url'];
-                        } elseif ($media && isset($media->content)) {
-                            $image = (string) $media->content->attributes()->url;
-                        } else {
-                            $image = "https://via.placeholder.com/320x180";
-                        }
-
-                        $articles[] = [
-                            'title' => (string) $item->title,
-                            'link' => (string) $item->link,
-                            'description' => (string) $item->description,
-                            'image' => $image,
-                            'sourceName' => $feed['feedName'],
-                            'sourceID' => $feed['feedID'],
-                            'keywords' => [] // Initialement vide
-                        ];
-                    }
-                }
-            }
-        }
-        return $articles;
-    }
 
 }
 

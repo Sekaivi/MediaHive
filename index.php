@@ -44,15 +44,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset(($_POST['routeAjax']))) {
       $controller = new ProfileController($cnxDB);
       $controller->update_preferences();
       break;
+
     case 'removePref':
       $controller = new ProfileController($cnxDB);
       $controller->remove_preference();
       break;
 
+    case 'likeArticle':
+      $controller = new ArticleController($cnxDB);
+      $controller->handleLike() ;
+      break;
+
+    case 'bookmarkArticle':
+      $controller = new ArticleController($cnxDB);
+      $controller->handleBookmark() ;
+      break;
+    case 'updateKeywords':
+      $controller = new ArticleController($cnxDB);
+      $controller->updateKeywords() ;
+      break;
+
+    case 'listPopKeywords':
+      $controller = new SearchController($cnxDB) ;
+      $controller->popular_keywords_list() ;
+      break ;
+    
+    case 'updateSearchSuggestions':
+      $controller = new SearchController($cnxDB) ;
+      $controller->search_suggestions_list() ;
+      break ;
+
     default:
       echo json_encode([
         'success' => false,
-        'message' => 'undefined AJAX route'
+        'message' => 'undefined AJAX route'.$_POST['routeAjax ']
       ]);
 
   }

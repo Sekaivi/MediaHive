@@ -76,7 +76,8 @@ class User extends Model
     public function bookmarks($user_id)
     {
         try {
-            $sql = "SELECT a.* FROM bookmarks b JOIN articles a ON b.articleID = a.articleID WHERE b.userID = :id;";
+            $sql = "SELECT a.*, f.feedName FROM bookmarks b JOIN articles a ON b.articleID = a.articleID 
+            JOIN rssFeeds f ON f.feedID = a.sourceID WHERE b.userID = :id;";
             $rqt = $this->cnxDB->prepare($sql);
             $rqt->execute(["id" => $user_id]);
             $data = $rqt->fetchAll();
@@ -146,8 +147,9 @@ class User extends Model
         }
     }
 
-    public function remove_preference($prefID){
-        try{
+    public function remove_preference($prefID)
+    {
+        try {
             $sql = "DELETE FROM preferences WHERE id = :id ;";
             $rqt = $this->cnxDB->prepare($sql);
             $success = $rqt->execute([

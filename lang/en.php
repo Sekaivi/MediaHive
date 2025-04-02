@@ -25,7 +25,9 @@ return [
     "noBookmarks" => "You don't have any bookmarks",
     "preferences" => "Preferences",
     "bookmarks" => "Bookmarks",
-    "editProfile" => "Edit Profile"
+    "editProfile" => "Edit Profile",
 
-    //
+    // idk
+    'trending' => 'Trending Articles',
+    'addKeywords' => 'Add keywords (max 3)'
 ];
