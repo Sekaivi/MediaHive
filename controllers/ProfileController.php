@@ -63,18 +63,32 @@ class ProfileController extends BaseController
             if ($result['success']) {
                 echo json_encode([
                     "success" => true,
-                    'feed' => $feedName
+                    'feedName' => $feedName,
+                    'prefID' => $result['prefID'] ?? ''
                 ]);
                 return;
             } else {
                 echo json_encode($result);
                 return;
             }
-            // max 6 avec user dedans...
-            // mettre à jour les preferences dans la BD + handle errors 'gracefully' LOLZ genre can't select something you already have ma dude
             // PENSER A AJOUTER UNE MAMNIERE D'ENLEVER UN FEED
         }
         unset($_POST);
+    }
+
+    public function remove_preference(){
+        $feedID = $_POST['prefID'] ;
+        $result = $this->userModel->remove_preference($feedID);
+        header('Content-Type: application/json');
+            if ($result['success']) {
+                echo json_encode([
+                    "success" => true
+                ]);
+                return;
+            } else {
+                echo json_encode($result);
+                return;
+            }
     }
 
 }

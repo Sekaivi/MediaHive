@@ -44,6 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset(($_POST['routeAjax']))) {
       $controller = new ProfileController($cnxDB);
       $controller->update_preferences();
       break;
+    case 'removePref':
+      $controller = new ProfileController($cnxDB);
+      $controller->remove_preference();
+      break;
 
     default:
       echo json_encode([

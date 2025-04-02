@@ -28,12 +28,20 @@
         </select>
         <button type="submit">Save</button>
     </form>
+
+    <p id="message" class="error"></p>
+
     <ul id="preferences-list">
         <?php if (empty($setPrefs)): ?>
-            <p><?= htmlspecialchars($noPreferences) ?></p>
+            <p id="noPref"><?= htmlspecialchars($noPreferences) ?></p>
         <?php else: ?>
             <?php foreach ($setPrefs as $feed): ?>
-                <li><?= htmlspecialchars($feed['feedName']) ?></li>
+
+                <form id="<?= htmlspecialchars($feed['id']) ?>" class="delete-pref">
+                    <li> <?= htmlspecialchars($feed['feedName']) ?></li>
+                    <button type="submit">Delete</button>
+                </form>
+
             <?php endforeach; ?>
         <?php endif; ?>
     </ul>

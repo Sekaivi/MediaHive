@@ -62,7 +62,7 @@ class User extends Model
     public function preferences($user_id)
     {
         try {
-            $sql = "SELECT f.feedName FROM preferences p JOIN rssfeeds f 
+            $sql = "SELECT f.feedName , p.id FROM preferences p JOIN rssfeeds f 
             ON p.rss_feed = f.feedID WHERE p.userID = :id ;";
             $rqt = $this->cnxDB->prepare($sql);
             $rqt->execute(["id" => $user_id]);
@@ -105,14 +105,53 @@ class User extends Model
         }
     }
 
-    public function update_preferences($user_id , $feedID)
+    public function update_preferences($user_id, $feedID)
     {
         try {
+            // Count the number of feeds the user has already selected
+            $sqlCount = "SELECT COUNT(*) FROM preferences WHERE userID = :user";
+            $stmtCount = $this->cnxDB->prepare($sqlCount);
+            $stmtCount->execute(['user' => $user_id]);
+            $feedCount = $stmtCount->fetchColumn();
+
+            // If the user already has 6 feeds, return an error message
+            if ($feedCount >= 6) {
+                return [
+                    'success' => false,
+                    'message' => "You can only select up to 6 feeds."
+                ];
+            }
+
             $sql = "INSERT INTO preferences (userID, rss_feed) VALUES (:user, :feed);";
             $rqt = $this->cnxDB->prepare($sql);
             $success = $rqt->execute([
-                'user'=>$user_id,
-                'feed'=>$feedID
+                'user' => $user_id,
+                'feed' => $feedID
+            ]);
+            if ($success) {
+                $prefID = $this->cnxDB->lastInsertId(); // Get the last inserted ID
+            } else {
+                $prefID = null;
+            }
+            return [
+                'success' => $success,
+                'message' => $success ? "Preferences updated" : "No changes made",
+                'prefID' => $prefID
+            ];
+        } catch (PDOException $e) {
+            return [
+                'success' => false,
+                'message' => "PDO error: " . $e->getMessage()
+            ];
+        }
+    }
+
+    public function remove_preference($prefID){
+        try{
+            $sql = "DELETE FROM preferences WHERE id = :id ;";
+            $rqt = $this->cnxDB->prepare($sql);
+            $success = $rqt->execute([
+                'id' => $prefID
             ]);
             return [
                 'success' => $success,
@@ -125,6 +164,8 @@ class User extends Model
             ];
         }
     }
+
+
 
 }
 

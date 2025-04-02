@@ -21,6 +21,7 @@ return [
 
     // profilePage
     "noPreferences" => "You don't have any preferences set.",
+    'errorPreferences' => "You already selected this feed",
     "noBookmarks" => "You don't have any bookmarks",
     "preferences" => "Preferences",
     "bookmarks" => "Bookmarks",

@@ -1,7 +1,6 @@
 let profileForm = document.getElementById('profile-form');
 let profileInfo = document.getElementById("profile-info");
 
-
 document.getElementById("edit-profile").addEventListener("click", function () {
     profileInfo.style.display = "none";
     profileForm.style.display = "block";
@@ -63,12 +62,30 @@ feedForm.addEventListener("submit", function (evt) {
         })
         .then(data => {
             if (data.success) {
+                let noPrefElement = document.getElementById('noPref');
+                if (noPrefElement) {
+                    noPrefElement.textContent = '';
+                }
+                prefID = data.prefID;
+                message.textContent = "";
+                let form = document.createElement('form');
+                form.classList = 'delete-pref';
+                form.id = prefID;
+                form.addEventListener("submit", function (evt) {
+                    delete_pref(evt, form);
+                });
                 let li = document.createElement('li');
-                li.textContent = data.feed;
+                li.textContent = data.feedName;
+                let button = document.createElement('button');
+                button.type = 'submit';
+                button.textContent = 'Delete';
                 let preferences = document.getElementById('preferences-list');
-                preferences.appendChild(li);
+                form.appendChild(li);
+                form.appendChild(button);
+                preferences.appendChild(form);
             } else {
-                console.log("Error while updating preferences");
+                let message = document.getElementById('message');
+                message.textContent = `You cannot add this feed (you either aready selected 6 feeds or already saved "${feedName}"`;
             }
         })
         .catch(error => console.error("Error:", error));
@@ -109,3 +126,36 @@ searchInput.addEventListener("focus", function () {
     let visibleOptions = [...feedList.options].filter(opt => opt.style.display !== "none");
     feedList.size = visibleOptions.length > 0 ? Math.min(visibleOptions.length, 6) : 1;
 });
+
+// delete pref :D
+let preferences_delete_forms = document.querySelectorAll('.delete-pref');
+preferences_delete_forms.forEach(form => {
+    form.addEventListener("submit", function (evt) {
+        delete_pref(evt, form);
+    });
+});
+
+function delete_pref(evt, form) {
+    evt.preventDefault();
+    let prefID = form.id;
+    let formData = new FormData();
+    formData.append("prefID", prefID);
+    formData.append("routeAjax", "removePref");
+    fetch("index.php", {
+        method: "POST",
+        body: formData
+    })
+        .then(response => response.text())
+        .then(text => {
+            console.log("Response:", text);
+            return JSON.parse(text);
+        })
+        .then(data => {
+            if (data.success) {
+                document.getElementById(`${prefID}`).remove();
+            } else {
+                document.getElementById("message").textContent = "Error while updating the profile";
+            }
+        })
+        .catch(error => console.error("Error:", error));
+}

@@ -7,7 +7,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" type="text/css" href="public/css/style.css" />
-  <script src="public/js/script.js" defer="defer"></script>
+  <script src="public/js/profile.js" defer="defer"></script>
+  <script src="public/js/article.js" defer="defer"></script>
 </head>
 
 <body>

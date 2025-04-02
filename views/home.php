@@ -41,11 +41,11 @@
         </button>
 
         <!-- Bouton Voir l'article -->
-        <button class="action-btn view-btn" title="Voir l'article"
-          onclick="window.open('<?= $article['link'] ?>', '_blank')">
+        <button class="action-btn view-btn" title="Voir l'article" data-link="<?= htmlspecialchars($article['link']) ?>">
           <img src="public/images/link1.png" alt="Voir l'article" class="view-btn" data-hover="public/images/link2.png"
             data-clicked="public/images/link3.png">
         </button>
+
 
         <!-- Bouton Favoris -->
         <button class="action-btn fav-btn" title="Favoris">
