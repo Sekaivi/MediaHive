@@ -11,23 +11,26 @@ class Article extends Model
                 $xml = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
                 if ($xml) {
                     foreach ($xml->channel->item as $item) {
-                        // Gérer les namespaces pour media:content
                         $namespaces = $item->getNameSpaces(true);
                         $media = isset($namespaces['media']) ? $item->children($namespaces['media']) : null;
 
-                        // Récupérer l'image depuis <enclosure> ou <media:content>
                         if (isset($item->enclosure['url'])) {
                             $image = (string) $item->enclosure['url'];
                         } elseif ($media && isset($media->content)) {
                             $image = (string) $media->content->attributes()->url;
+                        } elseif (isset($namespaces['content'])) {
+                            $content = (string) $item->children($namespaces['content'])->encoded;
+                            preg_match('/<img.*?src=["\'](.*?)["\']/', $content, $matches);
+                            $image = $matches[1] ?? "https://via.placeholder.com/320x180";
                         } else {
                             $image = "https://via.placeholder.com/320x180";
                         }
-
+                        $description = (string) $item->description;
+                        $description = preg_replace('/<img[^>]+>/i', '', $description);
                         $articles[] = [
                             'title' => (string) $item->title,
                             'link' => (string) $item->link,
-                            'description' => (string) $item->description,
+                            'description' => $description,
                             'image' => $image,
                             'sourceID' => $feed['feedID']
                         ];
@@ -42,6 +45,7 @@ class Article extends Model
             return false;
         }
     }
+
 
     private function save_articles($articles)
     {
@@ -215,9 +219,9 @@ class Article extends Model
             $rqt = $this->cnxDB->prepare($sql);
 
             $rqt->execute([
-                'searchTitle'=>$query ,
-                'searchDesc'=>$query
-        ]);
+                'searchTitle' => $query,
+                'searchDesc' => $query
+            ]);
             $data = $rqt->fetchAll();
         } catch (PDOException $e) {
             return "PDO ERROR: " . $e->getMessage();

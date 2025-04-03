@@ -13,15 +13,21 @@ class ArticleController extends BaseController {
 
     public function index() {
         $data = $this->t->getAll();
-        $ids = [1, 2];
+        $ids = array_rand(range(1, 54), 6);
         $rssFeeds = $this->rssModel->get_RSS_Feeds($ids) ;
         $articles = $this->articleModel->rss_articles($rssFeeds) ;
+        foreach($articles as &$article){
+            $id = $article['articleID'] ;
+            $keywords = $this->articleModel->article_keyword_list($id) ;
+            $article['keywords'] = $keywords ;
+        }
         $trendingArticles = $this->articleModel->get_trending_articles() ;
         foreach($trendingArticles as &$article){
             $id = $article['articleID'] ;
             $keywords = $this->articleModel->article_keyword_list($id) ;
             $article['keywords'] = $keywords ;
         }
+
         $data['trendingArticles'] = $trendingArticles ;
         $keyword_list = $this->articleModel->keywords_list() ;
         $data['articles'] = $articles ;
