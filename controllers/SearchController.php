@@ -37,19 +37,28 @@ class SearchController extends BaseController
             ]);
         } else {
             echo json_encode([
-                "success" => false ,
+                "success" => false,
                 "error" => $result
             ]);
         }
         return;
     }
 
-    public function get_articles_category($category){
-        // check if category exists SINON erreuuur
-        // reucpere l'ID, suggere des feed selon l'id, et BOUM resultats. + des filtres... ? idk genre popularité, récents... ? XD
+    public function get_articles_category($category)
+    {
+        if ($category < 9 && $category > 0) {
+            
+            $categories = 'test';
+            echo 'test' . $category;
+        }
+        else{
+            header("Location:" . BASE_URL . "/");
+            exit;
+        }
         
-        $categories = 'test' ;
-        echo 'test'.$category ;
+        // reucpere l'ID, suggere des feed selon l'id, et BOUM resultats. + des filtres... ? idk genre popularité, récents... ? XD
+        // appeler la méthode get article qui les save et tout
+
     }
 
 }

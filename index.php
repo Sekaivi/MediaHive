@@ -98,6 +98,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset(($_POST['routeAjax']))) {
 
   $router->addRoute('GET', '/category/{id}', 'SearchController@get_articles_category') ;
 
+// par defaut: se base sur les prefernces du user pour la recherche
+
   $router->resolve();
 }
 
