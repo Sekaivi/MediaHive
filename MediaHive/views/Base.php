@@ -51,29 +51,53 @@
 </header>
 
 
-<!-- Sidebar pour la navigation par catégorie -->
-  <aside id="sidebar">
-    <ul>
-      <li>
-        <!-- Exemple d'icône pour la catégorie News (remplacez par votre image) -->
-        <img src="public/images/Picto_News.png" alt="News">
-        <span>News</span>
-      </li>
-      <li>
+<aside id="sidebar">
+  <ul>
+    <li>
+      <a href="<?= BASE_URL ?>/?category=1">
+        <img src="public/images/Picto_TV.png" alt="TV Shows">
+        <span>TV Shows</span>
+      </a>
+    </li>
+    <li>
+      <a href="<?= BASE_URL ?>/?category=2">
+        <img src="public/images/Picto_Music.png" alt="Music">
+        <span>Music</span>
+      </a>
+    </li>
+    <li>
+      <a href="<?= BASE_URL ?>/?category=3">
         <img src="public/images/Picto_Cinema.png" alt="Cinéma">
         <span>Cinéma</span>
-      </li>
-      <li>
-        <img src="public/images/Picto_Gaming.png" alt="Gaming">
-        <span>Gaming</span>
-      </li>
-      <li>
-        <img src="public/images/Picto_Anime.png" alt="Anime">
-        <span>Anime</span>
-      </li>
-      <!-- Ajoutez d'autres catégories selon vos besoins -->
-    </ul>
-  </aside>
+      </a>
+    </li>
+    <li>
+      <a href="<?= BASE_URL ?>/?category=4">
+        <img src="public/images/Picto_Gaming.png" alt="Video Games">
+        <span>Video Games</span>
+      </a>
+    </li>
+    <li>
+      <a href="<?= BASE_URL ?>/?category=5">
+        <img src="public/images/Picto_Books.png" alt="Books & Comics">
+        <span>Books & Comics</span>
+      </a>
+    </li>
+    <li>
+      <a href="<?= BASE_URL ?>/?category=6">
+        <img src="public/images/Picto_Anime.png" alt="Manga & Anime">
+        <span>Manga & Anime</span>
+      </a>
+    </li>
+    <li>
+      <a href="<?= BASE_URL ?>/?category=7">
+        <img src="public/images/Picto_Internet.png" alt="Internet Culture">
+        <span>Internet Culture</span>
+      </a>
+    </li>
+  </ul>
+</aside>
+
 
   <main>
       <?= $content ?? 'Default content' ?>
