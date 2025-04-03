@@ -53,6 +53,7 @@ main {
   height: 40px; /* Ajustez selon vos besoins */
   width: auto;
 }
+
 .search-container {
   flex: 1;
   margin: 0 20px;

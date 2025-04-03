@@ -57,44 +57,50 @@
 <aside id="sidebar">
   <ul>
     <li>
-      <a href="<?= BASE_URL ?>/?category=1">
+      <a href="<?= BASE_URL ?>/category/1">
         <img src="public/images/Picto_TV.png" alt="TV Shows">
         <span>TV Shows</span>
       </a>
     </li>
     <li>
-      <a href="<?= BASE_URL ?>/?category=2">
+      <a href="<?= BASE_URL ?>/category/2">
         <img src="public/images/Picto_Music.png" alt="Music">
         <span>Music</span>
       </a>
     </li>
     <li>
-      <a href="<?= BASE_URL ?>/?category=3">
+      <a href="<?= BASE_URL ?>/category/3">
         <img src="public/images/Picto_Cinema.png" alt="Cinéma">
         <span>Cinéma</span>
       </a>
     </li>
     <li>
-      <a href="<?= BASE_URL ?>/?category=4">
+      <a href="<?= BASE_URL ?>/category/4">
         <img src="public/images/Picto_Gaming.png" alt="Video Games">
         <span>Video Games</span>
       </a>
     </li>
     <li>
-      <a href="<?= BASE_URL ?>/?category=5">
+      <a href="<?= BASE_URL ?>/category/5">
         <img src="public/images/Picto_Books.png" alt="Books & Comics">
         <span>Books & Comics</span>
       </a>
     </li>
     <li>
-      <a href="<?= BASE_URL ?>/?category=6">
+      <a href="<?= BASE_URL ?>/category/6">
         <img src="public/images/Picto_Anime.png" alt="Manga & Anime">
         <span>Manga & Anime</span>
       </a>
     </li>
     <li>
-      <a href="<?= BASE_URL ?>/?category=7">
+      <a href="<?= BASE_URL ?>/category/7">
         <img src="public/images/Picto_Internet.png" alt="Internet Culture">
+        <span>Internet Culture</span>
+      </a>
+    </li>
+    <li>
+      <a href="<?= BASE_URL ?>/category/8">
+        <img src="public/images/art.png" alt="Art">
         <span>Internet Culture</span>
       </a>
     </li>

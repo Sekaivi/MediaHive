@@ -45,8 +45,10 @@ class SearchController extends BaseController
     }
 
     public function get_articles_category($category){
-        // check if category exists and then shows
-        $categories = 
+        // check if category exists SINON erreuuur
+        // reucpere l'ID, suggere des feed selon l'id, et BOUM resultats. + des filtres... ? idk genre popularité, récents... ? XD
+        
+        $categories = 'test' ;
         echo 'test'.$category ;
     }
 
