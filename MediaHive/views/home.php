@@ -19,29 +19,35 @@
 
 
 <!-- Section pour les Articles Populaires (Public) -->
-<section class="carousel-section" id="popular-section">
+<section class="carousel-section">
   <h2>Articles Populaires</h2>
   <div class="carousel-container">
     <button class="carousel-btn prev" onclick="prevSlide('popular')">&#10094;</button>
     <div class="carousel" id="carousel-popular" data-current-index="0">
       <?php foreach ($articles as $index => $article): ?>
         <div class="article-card">
+          <!-- Image centrée -->
           <img class="article-image" src="<?= $article['image'] ?>" alt="<?= htmlspecialchars($article['title']) ?>">
+          <!-- Section mots clés -->
           <div class="keywords-section">
             <button class="add-keywords-btn" onclick="toggleKeywordOptions(<?= $index ?>, 'public')">
               Ajouter des mots clés (max 3)
             </button>
             <div class="available-keywords" id="keyword-options-public-<?= $index ?>">
-              <?php foreach ($availableKeywords as $keyword): ?>
+              <?php
+              $availableKeywords = ["Culture", "Cinéma", "Anime", "Gaming", "Comics", "Musique", "Séries"];
+              foreach ($availableKeywords as $keyword): ?>
                 <span onclick="addKeywordToArticle(<?= $index ?>, '<?= $keyword ?>', 'public')"><?= $keyword ?></span>
               <?php endforeach; ?>
             </div>
             <div class="keywords-list" id="selected-keywords-public-<?= $index ?>"></div>
           </div>
+          <!-- Contenu de l'article -->
           <div class="article-content">
             <h2 class="article-title"><?= htmlspecialchars($article['title']) ?></h2>
             <p class="article-description"><?= $article['description'] ?></p>
           </div>
+          <!-- Boutons d'action -->
           <div class="action-buttons">
             <button class="action-btn like-btn" title="Like">
               <img src="public/images/like1.png" alt="Like" class="btn-icon" data-hover="public/images/like2.png" data-clicked="public/images/like3.png">
@@ -61,14 +67,11 @@
     </div>
     <button class="carousel-btn next" onclick="nextSlide('popular')">&#10095;</button>
   </div>
-
-  <!-- Indicateur de position -->
-  <div class="carousel-indicators" id="indicators-popular">
-    <?php foreach ($articles as $index => $article): ?>
-      <span class="indicator <?= $index === 0 ? 'active' : '' ?>" onclick="goToSlide('popular', <?= $index ?>)"></span>
-    <?php endforeach; ?>
+  <!-- Barre de scroll personnalisée, draggable -->
+  <div class="custom-scrollbar" id="scrollbar-popular">
+    <div class="scrollbar-thumb"></div>
   </div>
-</section>
+
 
 <!-- Section pour les Articles Pour Vous (For You) -->
 <section class="carousel-section" id="foryou-section" style="display: none;">
@@ -89,11 +92,9 @@
     <button class="carousel-btn next" onclick="nextSlide('foryou')">&#10095;</button>
   </div>
 
-  <!-- Indicateur de position -->
-  <div class="carousel-indicators" id="indicators-foryou">
-    <?php foreach ($popularForYou as $index => $article): ?>
-      <span class="indicator <?= $index === 0 ? 'active' : '' ?>" onclick="goToSlide('foryou', <?= $index ?>)"></span>
-    <?php endforeach; ?>
+  <!-- Indicateur de scroll -->
+  <div class="scroll-indicator" id="scroll-indicator-popular">
+    <div class="scroll-progress" id="scroll-progress-popular"></div>
   </div>
 </section>
 
