@@ -33,7 +33,7 @@ class Router
             }
         }
 
-        echo "Error: Undefined route" ;
+        echo "Error: Undefined route" ; // redirect to main page OU 404 error
     }
 }
 

@@ -6,11 +6,11 @@
   <title><?= htmlspecialchars($title ?? 'Default title') ?></title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" type="text/css" href="public/css/style.css" />
-  <script src="public/js/profile.js" defer="defer"></script>
-  <script src="public/js/article.js" defer="defer"></script>
-  <script src="public/js/search.js" defer="defer"></script>
-  <script src="public/js/home.js" defer="defer"></script>
+  <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/public/css/style.css" />
+  <script src="<?= BASE_URL ?>/public/js/profile.js" defer="defer"></script>
+  <script src="<?= BASE_URL ?>/public/js/article.js" defer="defer"></script>
+  <script src="<?= BASE_URL ?>/public/js/search.js" defer="defer"></script>
+  <script src="<?= BASE_URL ?>/public/js/home.js" defer="defer"></script>
 </head>
 
 <body>
@@ -24,9 +24,9 @@
   <header>
     <nav class="navbar">
       <button class="toggle-sidebar-btn" onclick="toggleSidebar()">
-        <img src="public/images/Bouton_Menu.png" alt="Menu">
+        <img src="<?= BASE_URL ?>/public/images/Bouton_Menu.png" alt="Menu">
       </button>
-      <div class="logo"><img class="site-logo" src="public/images/LOGO.png"></div>
+      <div class="logo"><img class="site-logo" src="<?= BASE_URL ?>/public/images/LOGO.png"></div>
       <div class="search-container">
         <input id="searchbar" type="text" placeholder="Rechercher des actualités...">
         <div id="search-results"></div>
@@ -55,49 +55,49 @@
     <ul>
       <li>
         <a href="<?= BASE_URL ?>/category/1">
-          <img src="public/images/Picto_TV.png" alt="TV Shows">
+          <img src="<?= BASE_URL ?>/public/images/Picto_TV.png" alt="TV Shows">
           <span>TV Shows</span>
         </a>
       </li>
       <li>
         <a href="<?= BASE_URL ?>/category/2">
-          <img src="public/images/Picto_Music.png" alt="Music">
+          <img src="<?= BASE_URL ?>/public/images/Picto_Music.png" alt="Music">
           <span>Music</span>
         </a>
       </li>
       <li>
         <a href="<?= BASE_URL ?>/category/3">
-          <img src="public/images/Picto_Cinema.png" alt="Cinéma">
+          <img src="<?= BASE_URL ?>/public/images/Picto_Cinema.png" alt="Cinéma">
           <span>Cinéma</span>
         </a>
       </li>
       <li>
         <a href="<?= BASE_URL ?>/category/4">
-          <img src="public/images/Picto_Gaming.png" alt="Video Games">
+          <img src="<?= BASE_URL ?>/public/images/Picto_Gaming.png" alt="Video Games">
           <span>Video Games</span>
         </a>
       </li>
       <li>
         <a href="<?= BASE_URL ?>/category/5">
-          <img src="public/images/Picto_Books.png" alt="Books & Comics">
+          <img src="<?= BASE_URL ?>/public/images/Picto_Books.png" alt="Books & Comics">
           <span>Books & Comics</span>
         </a>
       </li>
       <li>
         <a href="<?= BASE_URL ?>/category/6">
-          <img src="public/images/Picto_Anime.png" alt="Manga & Anime">
+          <img src="<?= BASE_URL ?>/public/images/Picto_Anime.png" alt="Manga & Anime">
           <span>Manga & Anime</span>
         </a>
       </li>
       <li>
         <a href="<?= BASE_URL ?>/category/7">
-          <img src="public/images/Picto_Internet.png" alt="Internet Culture">
+          <img src="<?= BASE_URL ?>/public/images/Picto_Internet.png" alt="Internet Culture">
           <span>Internet Culture</span>
         </a>
       </li>
       <li>
         <a href="<?= BASE_URL ?>/category/8">
-          <img src="public/images/art.png" alt="Art">
+          <img src="<?= BASE_URL ?>/public/images/art.png" alt="Art">
           <span>Internet Culture</span>
         </a>
       </li>

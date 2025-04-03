@@ -29,6 +29,44 @@ class Rss_Feeds extends Model
         return $data;
     }
 
+    public function get_RSS_Feeds_from($ids)
+    {
+        try {
+            // Create a string with the correct number of placeholders for the 'IN' clause
+            $placeholders = implode(',', array_fill(0, count($ids), '?'));
+
+            // Prepare the SQL query with placeholders
+            $sql = "SELECT * FROM rssfeeds WHERE feedID IN ($placeholders)";
+            $rqt = $this->cnxDB->prepare($sql);
+
+            // Execute the query by passing the $ids array
+            $rqt->execute($ids);
+
+            // Fetch all results
+            $data = $rqt->fetchAll();
+        } catch (PDOException $e) {
+            echo "Erreur PDO: " . $e->getMessage();
+        }
+
+        return $data;
+    }
+
+
+    public function get_cat_RSS_Feeds($id)
+    {
+        $lang = $_SESSION['lang'];
+        try {
+            $sql = "SELECT * FROM rssfeeds WHERE category = :feed ORDER BY language";
+            $rqt = $this->cnxDB->prepare($sql);
+            $rqt->execute([
+                'feed' => $id
+            ]);
+            $data = $rqt->fetchAll();
+        } catch (PDOException $e) {
+            echo "Erreur PDO: " . $e->getMessage();
+        }
+        return $data;
+    }
 
 }
 

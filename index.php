@@ -30,6 +30,7 @@ if (!in_array($lang, $supportedLanguages)) {
 // Set the language in Translation
 $t = Translation::getInstance();
 $t->setLanguage($lang);
+$_SESSION['lang'] = $lang ;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset(($_POST['routeAjax']))) {
   $action = $_POST['routeAjax'];
@@ -97,6 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset(($_POST['routeAjax']))) {
   $router->addRoute('POST', "/profile/update", 'ProfileController@update_profile');
 
   $router->addRoute('GET', '/category/{id}', 'SearchController@get_articles_category') ;
+  $router->addRoute('POST', '/category/{id}', 'SearchController@update_articles_category') ;
 
 // par defaut: se base sur les prefernces du user pour la recherche
 

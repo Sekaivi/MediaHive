@@ -93,11 +93,18 @@ class Article extends Model
     public function get_articles()
     {
         try {
-            $sql = "SELECT articles.*, f.feedName, k.*
+            $sql = "SELECT articles.*, 
+            f.feedName, 
+            k.*, 
+            COUNT(al.articleID) AS popularity
             FROM articles
             JOIN rssFeeds AS f ON f.feedID = articles.sourceID
+            LEFT JOIN article_likes al ON articles.articleID = al.articleID
             LEFT JOIN article_keywords AS ak ON articles.articleID = ak.articleID
-            LEFT JOIN keywords AS k ON k.keywordID = ak.keywordID;
+            LEFT JOIN keywords AS k ON k.keywordID = ak.keywordID
+            GROUP BY articles.articleID, f.feedName, k.keywordID
+            ORDER BY popularity DESC;
+;
             ";
             $rqt = $this->cnxDB->prepare($sql);
             $rqt->execute();
