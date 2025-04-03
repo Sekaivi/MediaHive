@@ -2,9 +2,8 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #FFFFFF;
+  background-color: #f4f4f4;
 }
-
 
 /* Fixer le header en haut */
 header {
@@ -53,17 +52,15 @@ main {
   height: 40px; /* Ajustez selon vos besoins */
   width: auto;
 }
-
 .search-container {
   flex: 1;
   margin: 0 20px;
-  border: 1px solid #000;
-  border-radius: 3px;
 }
 .search-container input[type="text"] {
-  width: 60%;
+  width: 100%;
   padding: 8px;
-
+  border: none;
+  border-radius: 3px;
 }
 .nav-buttons button {
   background-color: #FFE009;
@@ -255,19 +252,6 @@ main {
 .carousel-btn.prev { left: 0; }
 .carousel-btn.next { right: 0; }
 
-/* Carte d'article */
-.article-card {
-  flex: 0 0 300px;
-  margin: 0 10px;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-}
 
 /* Custom scrollbar */
 .custom-scrollbar {
@@ -314,20 +298,6 @@ main {
 
 
 
-/* Style des cartes d'article dans le carrousel et la liste */
-.article-card {
-  flex: 0 0 300px;
-  margin: 0 10px;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-}
-
 /* Boutons de sélection Public / For You */
 .toggle-view {
   display: flex;
@@ -351,7 +321,7 @@ main {
 
 
 /* Carte d'article */
-
+/* Styles de base pour la carte d'article */
 .article-card {
   width: 320px;
   background: #fff;
@@ -389,7 +359,7 @@ main {
 
 /* Style de base pour les icônes */
 .btn-icon {
-  width: 64px;
+  width: 32px;
   height: 32px;
   display: block;
 }
@@ -408,7 +378,7 @@ main {
   border-top: 1px solid #eee;
   padding-top: 10px;
 }
-.add-keywords-btn {
+.keywords-btn {
   background-color: #007BFF;
   color: #fff;
   border: none;
@@ -481,7 +451,7 @@ main {
   cursor: pointer;
 }
 
-  .action-btn .view-btn{
+  .action-btn .view-btn , .view-img{
   width: 84px;
   height: 32px;
   background-size: contain;
