@@ -44,6 +44,12 @@ class SearchController extends BaseController
         return;
     }
 
+    public function get_articles_category($category){
+        // check if category exists and then shows
+        $categories = 
+        echo 'test'.$category ;
+    }
+
 }
 
 ?>

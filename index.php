@@ -96,6 +96,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset(($_POST['routeAjax']))) {
   $router->addRoute('GET', "/profile", 'ProfileController@display_profile');
   $router->addRoute('POST', "/profile/update", 'ProfileController@update_profile');
 
+  $router->addRoute('GET', '/{category}', 'SearchController@get_articles_category') ;
+
   $router->resolve();
 }
 
