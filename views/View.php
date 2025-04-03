@@ -10,7 +10,7 @@ class View
     ob_start();
     require "./views/$view.php";
     $content = ob_get_clean();
-    require "./views/base.php";
+    require "./views/Base.php";
   }
 }
 

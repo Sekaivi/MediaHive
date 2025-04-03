@@ -13,7 +13,7 @@ class SignInController extends BaseController
     public function signin_form()
     {
         if(isset($_SESSION['logged_in'])){
-            header("Location:" . BASE_URL . "/profile");
+            header("Location:" . BASE_URL . "/?route=profile");
             exit;
         }
         $data = $this->t->getAll();
@@ -27,7 +27,7 @@ class SignInController extends BaseController
         $password = $_POST['password'];
         if (empty($email) || empty($password)) {
             $_SESSION['error'] = true;
-            header("Location:" . BASE_URL . "/signin");
+            header("Location:" . BASE_URL . "/?route=signin");
             exit;
         }
         $user = $this->userModel->get_user_email($email);
@@ -35,11 +35,11 @@ class SignInController extends BaseController
             $_SESSION['user_id'] = $user['userID'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['logged_in'] = true;
-            header("Location:" . BASE_URL . "/profile");
+            header("Location:" . BASE_URL . "/?route=profile");
             exit;
         } else {
             $_SESSION['error'] = true;
-            header("Location:" . BASE_URL . "/signin");
+            header("Location:" . BASE_URL . "/?route=signin");
             exit;
         }
     }

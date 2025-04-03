@@ -12,7 +12,7 @@
 
 
 
-<form method="post" action="<?= BASE_URL ?>/signup">
+<form method="post" action="<?= BASE_URL ?>/?route=signup">
     <img class="site-logo" src="public/images/LOGO.png">
 
     <label for="username"><?= htmlspecialchars($username ?? 'error') ?></label>

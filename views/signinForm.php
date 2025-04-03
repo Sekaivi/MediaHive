@@ -10,7 +10,7 @@
     unset($_SESSION['error']); ?></p>
 <?php endif; ?>
 
-<form method="post" action="<?= BASE_URL ?>/signin">
+<form method="post" action="<?= BASE_URL ?>/?route=signin">
 
     <img class="site-logo" src="public/images/LOGO.png">
     <label for="email"><?= htmlspecialchars($email ?? 'error') ?></label>

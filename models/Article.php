@@ -98,7 +98,7 @@ class Article extends Model
             k.*, 
             COUNT(al.articleID) AS popularity
             FROM articles
-            JOIN rssFeeds AS f ON f.feedID = articles.sourceID
+            JOIN rssfeeds AS f ON f.feedID = articles.sourceID
             LEFT JOIN article_likes al ON articles.articleID = al.articleID
             LEFT JOIN article_keywords AS ak ON articles.articleID = ak.articleID
             LEFT JOIN keywords AS k ON k.keywordID = ak.keywordID
@@ -120,7 +120,7 @@ class Article extends Model
         try {
             $sql = "SELECT a.*, f.feedName, COUNT(al.articleID) AS popularity 
         FROM articles a
-        JOIN rssFeeds AS f ON f.feedID = a.sourceID
+        JOIN rssfeeds AS f ON f.feedID = a.sourceID
         LEFT JOIN article_likes al ON a.articleID = al.articleID
         GROUP BY a.articleID, f.feedName
         ORDER BY popularity DESC 

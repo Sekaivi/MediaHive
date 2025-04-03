@@ -1,6 +1,6 @@
 <?php $title = 'placeholder' ?>
 
-<form action="<?= BASE_URL ?>/category/<?= $category ?>" method="POST">
+<form action="<?= BASE_URL ?>/?route=category&id=<?= $category ?>" method="POST">
     <?php foreach ($feedList as $feed): ?>
         <label>
             <input type="checkbox" name="feeds[]" value="<?= htmlspecialchars($feed['feedID']) ?>"

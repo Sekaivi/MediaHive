@@ -5,11 +5,11 @@ session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
-define('BASE_URL', rtrim(dirname($_SERVER['SCRIPT_NAME']), '/'));
+define('LOCATION', '/MediaHive');
+define('BASE_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/' . ltrim(LOCATION, '/'));
 
 define("CHARGE_AUTOLOAD", true);
 require_once "config/autoloader.php";
-
 
 require_once("config/db.php"); // loading database
 try {
@@ -17,9 +17,6 @@ try {
 } catch (PDOException $e) {
   throw new PDOException($e->getMessage(), (int) $e->getCode()); // for debug, otherwise use: die("Database connection failed. Please try again later.");
 }
-
-$router = new Router($cnxDB);
-
 
 $lang = $_GET['lang'] ?? $_SESSION['lang'] ?? 'en';
 $supportedLanguages = ['en', 'fr'];
@@ -30,7 +27,7 @@ if (!in_array($lang, $supportedLanguages)) {
 // Set the language in Translation
 $t = Translation::getInstance();
 $t->setLanguage($lang);
-$_SESSION['lang'] = $lang ;
+$_SESSION['lang'] = $lang;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset(($_POST['routeAjax']))) {
   $action = $_POST['routeAjax'];
@@ -53,57 +50,99 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset(($_POST['routeAjax']))) {
 
     case 'likeArticle':
       $controller = new ArticleController($cnxDB);
-      $controller->handleLike() ;
+      $controller->handleLike();
       break;
 
     case 'bookmarkArticle':
       $controller = new ArticleController($cnxDB);
-      $controller->handleBookmark() ;
+      $controller->handleBookmark();
       break;
     case 'updateKeywords':
       $controller = new ArticleController($cnxDB);
-      $controller->updateKeywords() ;
+      $controller->updateKeywords();
       break;
 
     case 'listPopKeywords':
-      $controller = new SearchController($cnxDB) ;
-      $controller->popular_keywords_list() ;
-      break ;
-    
+      $controller = new SearchController($cnxDB);
+      $controller->popular_keywords_list();
+      break;
+
     case 'updateSearchSuggestions':
-      $controller = new SearchController($cnxDB) ;
-      $controller->search_suggestions_list() ;
-      break ;
+      $controller = new SearchController($cnxDB);
+      $controller->search_suggestions_list();
+      break;
 
     default:
       echo json_encode([
         'success' => false,
-        'message' => 'undefined AJAX route'.$_POST['routeAjax ']
+        'message' => 'undefined AJAX route' . $_POST['routeAjax ']
       ]);
 
   }
 
 } else {
-  $router->addRoute('GET', "/", 'ArticleController@index');
 
-  $router->addRoute('GET', "/signin", 'SignInController@signin_form');
-  $router->addRoute('POST', "/signin", 'SignInController@handleConnexion');
+  // tout ce qui se fait en GET
+  if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $route = $_GET['route'] ?? 'home';
 
-  $router->addRoute('GET', "/signup", 'SignUpController@signup_form');
-  $router->addRoute('POST', "/signup", 'SignUpController@handleSignup');
+    switch ($route) {
+      case '':
+      case 'home':
+        $controller = new ArticleController($cnxDB);
+        $controller->index();
+        break;
 
-  $router->addRoute('GET', "/logout", 'SignOutController@handle_signout');
+      case 'signin':
+        $controller = new SignInController($cnxDB);
+        $controller->signin_form();
+        break;
 
-  $router->addRoute('GET', "/profile", 'ProfileController@display_profile');
-  $router->addRoute('POST', "/profile/update", 'ProfileController@update_profile');
+      case 'signup':
+        $controller = new SignUpController($cnxDB);
+        $controller->signup_form();
+        break;
 
-  $router->addRoute('GET', '/category/{id}', 'SearchController@get_articles_category') ;
-  $router->addRoute('POST', '/category/{id}', 'SearchController@update_articles_category') ;
+      case 'profile':
+        $controller = new ProfileController($cnxDB);
+        $controller->display_profile();
+        break;
 
-// par defaut: se base sur les prefernces du user pour la recherche
+      case 'logout':
+        $controller = new SignOutController();
+        $controller->handle_signout();
+        break;
 
-  $router->resolve();
+      case 'category':
+        $controller = new SearchController($cnxDB);
+        $controller->get_articles_category($_GET['id']);
+      default:
+        echo 'error 404';
+    }
+  } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $route = $_GET['route'] ?? 'home';
+
+    switch ($route) {
+
+      case 'signin':
+        $controller = new SignInController($cnxDB);
+        $controller->handleConnexion();
+        break;
+
+      case 'signup':
+        $controller = new SignUpController($cnxDB);
+        $controller->handleSignup();
+        break;
+
+      case 'category':
+        $controller = new SearchController($cnxDB);
+        $controller->update_articles_category($_GET['id']);
+      default:
+        echo 'error 404';
+    }
+  }
+  
+
 }
-
 
 ?>

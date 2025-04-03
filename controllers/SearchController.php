@@ -89,7 +89,7 @@ class SearchController extends BaseController
 
     public function update_articles_category($category){
         if ($category < 1 || $category > 9) {
-            header("Location: " . BASE_URL . "/");
+            header("Location:" . BASE_URL . "/");
             exit;
         }
         $data = $this->t->getAll();

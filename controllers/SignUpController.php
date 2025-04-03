@@ -13,7 +13,7 @@ class SignUpController extends BaseController
     public function signup_form()
     {
         if(isset($_SESSION['logged_in'])){
-            header("Location:" . BASE_URL . "/profile");
+            header("Location:" . BASE_URL . "/?route=profile");
             exit;
         }
         $data = $this->t->getAll();
@@ -28,20 +28,20 @@ class SignUpController extends BaseController
         $password = $_POST['password'];
         if (empty($email) || empty($username) || empty($password)) {
             $_SESSION['error'] = true;
-            header("Location:" . BASE_URL . "/signup");
+            header("Location:" . BASE_URL . "/?route=signup");
             exit;
         }
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $this->userModel->register_user($username, $email, $hashedPassword);
 
         if (isset($_SESSION['error'])) {
-            header("Location:" . BASE_URL . "/signup");
-            exit();
+            header("Location:" . BASE_URL . "/?route=signup");
+            exit;
         }
 
         // on success:
-        header("Location:" . BASE_URL . "/signin");
-        exit();
+        header("Location:" . BASE_URL . "/?route=signin");
+            exit;
 
     }
 
