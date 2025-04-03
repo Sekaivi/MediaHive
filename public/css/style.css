@@ -2,18 +2,47 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  background-color: #FFFFFF;
 }
+
+
+/* Fixer le header en haut */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Bordure sous le header */
+.header-border {
+  display: flex;
+  width: 100%;
+  height: 4px;  /* ajustez la hauteur selon vos besoins */
+}
+
+.header-border .border-segment {
+  flex: 1;  /* chaque segment occupe 25% */
+}
+
+/* Pour que le contenu ne soit pas masqué par le header */
+main {
+  padding-top: 80px; /* Ajustez en fonction de la hauteur de votre header */
+}
+
 
 /* Barre de navigation */
 .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #333;
+  background-color: #FFFFFF;
   padding: 10px 20px;
   padding-top: 10px ;
-  color: #fff;
+  color: #000;
 }
 .logo {
   /* On peut ajuster la hauteur du logo */
@@ -27,12 +56,13 @@ body {
 .search-container {
   flex: 1;
   margin: 0 20px;
+  border: 1px solid #000;
+  border-radius: 3px;
 }
 .search-container input[type="text"] {
-  width: 100%;
+  width: 60%;
   padding: 8px;
-  border: none;
-  border-radius: 3px;
+
 }
 .nav-buttons button {
   background-color: #FFE009;
@@ -47,6 +77,109 @@ body {
   background-color: #777;
 }
 
+/* Barre latérale fixe à gauche */
+
+/* Bouton de menu utilisant une image PNG */
+    .toggle-sidebar-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .toggle-sidebar-btn img {
+      width: 40px;
+      height: 40px;
+    }
+
+ /* Sidebar fixe à gauche */
+    #sidebar {
+      position: fixed;
+      top: 70px; /* sous le header */
+      left: 0;
+      bottom: 0;
+      background-color: #F0F0F0;
+      color: #333;
+      overflow: hidden;
+      transition: width 0.3s ease;
+      width: 60px; /* largeur par défaut en mode réduit */
+      z-index: 900;
+    }
+    /* Sidebar en mode agrandi */
+    #sidebar.expanded {
+      width: 250px;
+    }
+    /* Contenu de la sidebar */
+    #sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    #sidebar ul li {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      border-bottom: 1px solid #444;
+    }
+    /* Pictogramme (icône) pour la catégorie */
+    #sidebar ul li img {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+    /* Texte de la catégorie caché en mode réduit */
+    #sidebar ul li span {
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    /* Quand la sidebar est agrandie, afficher le texte */
+    #sidebar.expanded ul li span {
+      opacity: 1;
+    }
+
+    /* Écran de chargement (placé derrière header et sidebar) */
+    #loading-screen {
+      position: fixed;
+      top: 70px; /* sous le header */
+      left: 0;
+      width: 100vw;
+      height: calc(100vh - 70px);
+      background-color: rgba(255, 255, 255, 0.9);
+      z-index: 500;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .spinner {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #007BFF;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    #loading-screen p {
+      font-size: 1.2em;
+      color: #333;
+    }
+
+/* Main : espace pour le contenu, décalé selon la sidebar */
+    main {
+      margin-top: 70px;
+      margin-left: 40px;
+      transition: margin-left 0.3s ease;
+      padding: 20px;
+    }
+    /* Quand la sidebar est agrandie, ajuster la marge */
+    #sidebar.expanded ~ main {
+      margin-left: 250px;
+    }
+
 /* Conteneur d'articles */
 #newsContainer {
   padding: 20px;
@@ -55,8 +188,169 @@ body {
   gap: 20px;
 }
 
+/* Styles pour la section de présentation */
+.presentation {
+  width: 100%;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.presentation-video {
+  max-width: 90%;
+  height: auto;
+  border: 2px solid #fff;
+  border-radius: 4px;
+}
+
+/* Bannière de séparation */
+.banner {
+
+  width: 100vw;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.banner img {
+  margin-top:3%;
+  margin-bottom:3%;
+  width: 100%; 
+  height: auto; 
+  display: block; 
+}
+
+
+
+/* Conteneur global du carrousel */
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  margin: 20px 0;
+}
+
+/* Conteneur du carrousel (défilement horizontal) */
+.carousel {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+/* Boutons de navigation du carrousel */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0,0,0,0.5);
+  border: none;
+  color: #fff;
+  font-size: 2em;
+  padding: 0 10px;
+  cursor: pointer;
+  z-index: 10;
+}
+.carousel-btn.prev { left: 0; }
+.carousel-btn.next { right: 0; }
+
 /* Carte d'article */
-/* Styles de base pour la carte d'article */
+.article-card {
+  flex: 0 0 300px;
+  margin: 0 10px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+/* Custom scrollbar */
+.custom-scrollbar {
+  width: 100%;
+  height: 8px;
+  background-color: #ddd;
+  border-radius: 4px;
+  margin-top: 10px;
+  position: relative;
+  cursor: pointer;
+}
+.scrollbar-thumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 30px; /* largeur fixe du thumb */
+  background-color: #333;
+  border-radius: 4px;
+  transition: left 0.3s ease;
+}
+
+/* Indicateurs (optionnels) */
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+.indicator {
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
+  background-color: #bbb;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.indicator.active {
+  background-color: #333;
+  width: 12px;
+  height: 12px;
+}
+
+
+
+
+/* Style des cartes d'article dans le carrousel et la liste */
+.article-card {
+  flex: 0 0 300px;
+  margin: 0 10px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+/* Boutons de sélection Public / For You */
+.toggle-view {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.toggle-view button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #ddd;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.toggle-view button.active {
+  background-color: #333;
+  color: white;
+}
+
+
+/* Carte d'article */
+
 .article-card {
   width: 320px;
   background: #fff;
@@ -94,7 +388,7 @@ body {
 
 /* Style de base pour les icônes */
 .btn-icon {
-  width: 32px;
+  width: 64px;
   height: 32px;
   display: block;
 }
@@ -113,7 +407,7 @@ body {
   border-top: 1px solid #eee;
   padding-top: 10px;
 }
-.keywords-btn {
+.add-keywords-btn {
   background-color: #007BFF;
   color: #fff;
   border: none;
@@ -186,7 +480,7 @@ body {
   cursor: pointer;
 }
 
-  .action-btn .view-btn , .view-img{
+  .action-btn .view-btn{
   width: 84px;
   height: 32px;
   background-size: contain;

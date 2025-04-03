@@ -13,26 +13,30 @@ class ArticleController extends BaseController {
 
     public function index() {
         $data = $this->t->getAll();
-        $ids = array_rand(range(1, 54), 6);
+        $ids = [1, 2];
         $rssFeeds = $this->rssModel->get_RSS_Feeds($ids) ;
         $articles = $this->articleModel->rss_articles($rssFeeds) ;
-        foreach($articles as &$article){
-            $id = $article['articleID'] ;
-            $keywords = $this->articleModel->article_keyword_list($id) ;
-            $article['keywords'] = $keywords ;
-        }
         $trendingArticles = $this->articleModel->get_trending_articles() ;
         foreach($trendingArticles as &$article){
             $id = $article['articleID'] ;
             $keywords = $this->articleModel->article_keyword_list($id) ;
             $article['keywords'] = $keywords ;
         }
-
         $data['trendingArticles'] = $trendingArticles ;
         $keyword_list = $this->articleModel->keywords_list() ;
         $data['articles'] = $articles ;
         $data['keyword_list'] = $keyword_list ;
         View::render('home', $data);
+        // Une fois les articles récupérés, on insère un script pour masquer l'écran de chargement.
+    // Ce script s'exécutera lorsque le DOM sera complètement chargé.
+    echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var loadScreen = document.getElementById("loading-screen");
+                if(loadScreen) {
+                    loadScreen.style.display = "none";
+                }
+            });
+          </script>';
         return;
     }
 
