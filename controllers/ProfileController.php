@@ -3,6 +3,7 @@
 class ProfileController extends BaseController
 {
     private $userModel;
+    private $articleModel ;
     private $feeds;
 
     public function __construct($cnxDB)
@@ -10,6 +11,7 @@ class ProfileController extends BaseController
         parent::__construct();
         $this->userModel = new User($cnxDB);
         $this->feeds = new Rss_Feeds($cnxDB);
+        $this->articleModel = new Article($cnxDB) ;
     }
 
     public function display_profile()
@@ -23,7 +25,15 @@ class ProfileController extends BaseController
         $data['user'] = $user;
         $data['rssFeeds'] = $this->feeds->get_all_Feeds();
         $data['setPrefs'] = $this->userModel->preferences($user['userID']);
-        $data['currentBookmarks'] = $this->userModel->bookmarks($user["userID"]);
+        $bookmarks = $this->userModel->bookmarks($user["userID"]);
+        foreach ($bookmarks as &$article) {
+            $id = $article['articleID'];
+            $keywords = $this->articleModel->article_keyword_list($id);
+            $article['keywords'] = $keywords;
+        }
+        $data['currentBookmarks'] = $bookmarks ;
+        $keyword_list = $this->articleModel->keywords_list();
+        $data['keyword_list'] = $keyword_list;
         View::render('profilePage', $data);
         return;
     }

@@ -1,6 +1,25 @@
 let profileForm = document.getElementById('profile-form');
-let profileInfo = document.getElementById("profile-info");
+let profileInfo = document.getElementById("profile");
 let edit_profile = document.getElementById("edit-profile");
+
+let pref_btn = document.getElementById('preferences-btn') ;
+let bookmarks_btn = document.getElementById('bookmarks-btn') ;
+let pref_section = document.getElementById('preferences-section') ;
+let book_section = document.getElementById('bookmarks-section') ;
+
+function display_preferences() {
+    book_section.style.display = 'none';
+    pref_section.style.display = 'flex';
+    pref_btn.classList.add('active');
+    bookmarks_btn.classList.remove('active');
+  }
+  
+  function display_bookmarks() {
+    book_section.style.display = 'flex';
+    pref_section.style.display = 'none';
+    pref_btn.classList.remove('active');
+    bookmarks_btn.classList.add('active');
+  }
 
 if (edit_profile) {
     edit_profile.addEventListener("click", function () {
@@ -30,7 +49,7 @@ if (profileForm) {
                     document.getElementById("profilePicture").src = user.profilePicture;
                     document.getElementById("bio").textContent = user.bio;
                     document.getElementById("message").textContent = "Profile updated successfully!";
-                    profileInfo.style.display = "flex";
+                    profileInfo.style.display = "block";
                     profileForm.style.display = "none";
                 } else {
                     document.getElementById("message").textContent = "Error while updating the profile";

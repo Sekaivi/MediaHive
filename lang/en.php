@@ -18,6 +18,7 @@ return [
     "formError" => "Credentials are incorrect",
     "registerError" => "E-mail already exists",
     "home" => "Home",
+    "forgotQ" => "Password or e-mail forgotten",
 
     // profilePage
     "noPreferences" => "You don't have any preferences set.",
@@ -37,5 +38,6 @@ return [
     'legalinfo' => 'Legal Information',
     'useragree' => 'User Agreement',
     'novideoSupport' => "Your navigator isn't compatible with the video tag",
-    'connexionRequired' => "You need to identify yourself to access this feature !"
+    'connexionRequired' => "You need to identify yourself to access this feature !",
+    'infoPref' => 'You can chose up to 6 feeds :)'
 ];

@@ -1,5 +1,7 @@
-let user_reco = document.getElementById('userReco') ;
+let user_reco = document.getElementById('userReco');
+let user_btn = document.getElementById('foryou-btn')
 let media_reco = document.getElementById("mediahiveReco");
+let media_btn = document.getElementById('public-btn');
 
 function toggleSidebar() {
   var sidebar = document.getElementById('sidebar');
@@ -7,14 +9,18 @@ function toggleSidebar() {
   // La marge de <main> est gérée via le sélecteur CSS adjacent (avec ~)
 }
 
-function display_user_reco(){
-   media_reco.style.display = 'none' ;
-   user_reco.style.display = 'flex' ;
+function display_user_reco() {
+  media_reco.style.display = 'none';
+  user_reco.style.display = 'flex';
+  media_btn.classList.remove('active');
+  user_btn.classList.add('active');
 }
 
-function display_mediahive_reco(){
-  media_reco.style.display = 'flex' ;
-   user_reco.style.display = 'none' ;
+function display_mediahive_reco() {
+  media_reco.style.display = 'flex';
+  user_reco.style.display = 'none';
+  media_btn.classList.add('active');
+  user_btn.classList.remove('active');
 }
 
 // General function to update the position of the scrollbar thumb
@@ -126,9 +132,9 @@ const closeBtn = document.querySelector(".close-btn");
 const closeModalBtn = document.getElementById("closeModal");
 
 
-function displayModal(message){
+function displayModal(message) {
   modal.style.display = "flex";
-  modal.querySelector('#modalTitle').textContent = message ;
+  modal.querySelector('#modalTitle').textContent = message;
 }
 
 // Close modal function

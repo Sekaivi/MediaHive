@@ -2,26 +2,35 @@
     $title = $signIn;
 } ?>
 
+<div class="formPage">
 
-<h2><?= htmlspecialchars($title ?? 'Error while rendering') ?></h2>
+    <img src="<?=BASE_URL?>/public/images/shape_1.png" alt="background shape" id="shape1" />
+    <img src="<?=BASE_URL?>/public/images/shape_2.png" alt="background shape" id="shape2" />
+    <img src="<?=BASE_URL?>/public/images/shape_3.png" alt="background shape" id="shape3" />
+    <img src="<?=BASE_URL?>/public/images/shape_4.png" alt="background shape" id="shape4" />
 
-<?php if (isset($_SESSION['error'])): ?>
-    <p class="error"><?php echo htmlspecialchars($formError);
-    unset($_SESSION['error']); ?></p>
-<?php endif; ?>
+    <div id="signIn">
 
-<form method="post" action="<?= BASE_URL ?>/?route=signin">
+        <?php if (isset($_SESSION['error'])): ?>
+            <p class="error"><?php echo htmlspecialchars($formError);
+            unset($_SESSION['error']); ?></p>
+        <?php endif; ?>
 
-    <img class="site-logo" src="public/images/LOGO.png">
-    <label for="email"><?= htmlspecialchars($email ?? 'error') ?></label>
-    <input type="email" name="email" id="email" required>
+        <form method="post" action="<?= BASE_URL ?>/?route=signin">
 
-    <label for="password"><?= htmlspecialchars($password ?? 'error') ?></label>
-    <input type="password" name="password" id="password" required>
+            <img id="form-logo" src="public/images/LOGO.png">
+            <input type="email" name="email" id="email" placeholder="e-mail" required>
 
-    <button type="submit"><?= htmlspecialchars($signIn ?? 'error') ?></button>
-</form>
+            <input type="password" name="password" placeholder="password" id="password" required>
 
-<p><?= htmlspecialchars($notRegisteredQ ?? 'error') ?>
-    <a href="<?= BASE_URL ?>/signup"><?= htmlspecialchars($signUp ?? 'error') ?></a>.
-</p>
+            <p><?= $forgotQ ?></p>
+
+            <button type="submit"><?= htmlspecialchars($signIn ?? 'error') ?></button>
+        </form>
+            <p id="or">OR</p>
+        <p><?= htmlspecialchars($notRegisteredQ ?? 'error') ?>
+            <a href="<?= BASE_URL ?>/signup"><?= htmlspecialchars($signUp ?? 'error') ?></a>.
+        </p>
+    </div>
+
+</div>

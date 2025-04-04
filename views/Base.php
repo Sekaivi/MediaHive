@@ -163,7 +163,6 @@
       </div>
     </div>
 
-    <p>&copy; <?= date('Y') ?> - MediaHive</p>
   </footer>
 </body>
 

@@ -19,7 +19,7 @@ try {
 }
 
 $lang = $_GET['lang'] ?? $_POST['lang'] ?? $_SESSION['lang'] ?? 'en';
-$supportedLanguages = ['en', 'fr', 'viet'];
+$supportedLanguages = ['en', 'fr', 'vi'];
 if (!in_array($lang, $supportedLanguages)) {
   $lang = 'en'; // default to english
 }
