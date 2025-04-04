@@ -29,5 +29,13 @@ return [
 
     // idk
     'trending' => 'Trending Articles',
-    'addKeywords' => 'Add keywords (max 3)'
+    'addKeywords' => 'Add keywords (max 3)',
+    'subscribe' => 'SUBSCRIBE TO OUR NEWSLETTER !',
+    'explanation_newsletter' => 'By subscribing, receive our news. Unsubscribe at any time.',
+    'faq' => 'FAQ',
+    'about' => 'About us',
+    'legalinfo' => 'Legal Information',
+    'useragree' => 'User Agreement',
+    'novideoSupport' => "Your navigator isn't compatible with the video tag",
+    'connexionRequired' => "You need to identify yourself to access this feature !"
 ];

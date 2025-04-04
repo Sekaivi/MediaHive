@@ -5,9 +5,40 @@ const share_btns = document.querySelectorAll('.share-btn');
 const view_btns = document.querySelectorAll('.view-btn');
 const keyword_forms = document.querySelectorAll('.keywords-section');
 
-[...like_btns, ...fav_btns].forEach(btn => {
+[...like_btns, ...fav_btns, ...share_btns].forEach(btn => {
     btn.addEventListener('click', handleButtonClick);
 });
+
+
+[...like_btns, ...fav_btns, ...share_btns].forEach(btn => {
+    const img = btn.querySelector('img');
+    let clicked = false;
+    
+    btn.addEventListener('mouseenter', function () {
+        if (!clicked) {
+            img.src = img.dataset.hover;
+        }
+    });
+
+    btn.addEventListener('mouseleave', function () {
+        if (!clicked) { 
+            img.src = img.dataset.default;
+        }
+    });
+
+    btn.addEventListener('click', function () {
+        if (!clicked) {
+            img.src = img.dataset.clicked;
+            clicked = true;
+        } else {
+            img.src = img.dataset.default;
+            clicked = false;
+        }
+    });
+});
+
+
+
 
 view_btns.forEach(button => {
     button.addEventListener('click', function () {
@@ -86,7 +117,7 @@ function update_keyword(evt, form) {
 }
 
 
-function handleButtonClick(event) {
+async function handleButtonClick(event) {
 
     const article = event.target.closest('.article-card');
     if (!article) return;
@@ -97,6 +128,27 @@ function handleButtonClick(event) {
         article_action(articleID, "likeArticle");
     } else if (button.classList.contains('fav-btn')) {
         article_action(articleID, "bookmarkArticle");
+    } else if (button.classList.contains('share-btn')) {
+        let link = article.querySelector('.view-btn').getAttribute("data-link");
+        let title = article.querySelector('.article-title').textContent;
+        await share_article(link, title);
+    }
+}
+
+async function share_article(article, title) {
+    if (navigator.share) {
+        try {
+            await navigator.share({
+                title: title,
+                text: "This might interest you :D",
+                url: article
+            });
+            console.log("Shared successfully!");
+        } catch (error) {
+            console.error("Error sharing:", error);
+        }
+    } else {
+        alert("Your browser doesn't support the Web Share API.");
     }
 }
 

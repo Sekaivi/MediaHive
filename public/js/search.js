@@ -1,12 +1,14 @@
 const searchbar = document.getElementById('searchbar');
 const searchContainer = document.querySelector('.search-container');
-const searchResults = document.getElementById('search-results') ;
+const searchResults = document.getElementById('search-results');
+// Example: Sort articles in descending order on page load
+
 searchbar.addEventListener('focus', () => {
     keywords_suggestions();
 });
 
-searchbar.addEventListener('focusout' , () => {
-    searchResults.innerHTML = '' ;
+searchbar.addEventListener('focusout', () => {
+    searchResults.innerHTML = '';
 })
 
 searchbar.addEventListener('input', () => {
@@ -25,20 +27,23 @@ searchbar.addEventListener('input', () => {
         method: "POST",
         body: formData
     })
-    .then(response => response.json()) 
-    .then(data => {
-        console.log("Response:", data);
-        searchResults.innerHTML = "";
-        if (data.success) {
-            data.articles.forEach(article => {
-                const search_suggestion = document.createElement('div');
-                search_suggestion.classList.add('search-suggestion');
-                search_suggestion.textContent = article.title.length > 20 ? article.title.substring(0, 50) + "..." : article.title;
-                searchResults.appendChild(search_suggestion);
-            });
-        }
-    })
-    .catch(error => console.error("Error:", error));
+        .then(response => response.json())
+        .then(data => {
+            console.log("Response:", data);
+            searchResults.innerHTML = "";
+            if (data.success) {
+                data.articles.forEach(article => {
+                    const search_suggestion = document.createElement('div');
+                    search_suggestion.classList.add('search-suggestion');
+                    search_suggestion.textContent = article.title.length > 20 ? article.title.substring(0, 50) + "..." : article.title;
+                    searchResults.appendChild(search_suggestion);
+                    search_suggestion.addEventListener('click',()=>{
+                        searchbar.value = search_suggestion.textContent ;
+                    })
+                });
+            }
+        })
+        .catch(error => console.error("Error:", error));
 });
 
 function keywords_suggestions() {
@@ -71,5 +76,15 @@ function keywords_suggestions() {
 }
 
 
+function sortArticles(ascending) {
+    const container = document.querySelector('#category-container');
+    const articles = Array.from(container.querySelectorAll('.article-card'));
+    articles.reverse();
 
-// autre function qui va faire des propositions en fonction de la recherche EN PRIVILEGIANT LES PLUS POPULAIRES !!
+    // Clear the container and re-append the reversed articles
+    container.innerHTML = '';
+
+    articles.forEach(article => {
+        container.appendChild(article);
+    });
+}

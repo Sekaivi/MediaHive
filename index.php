@@ -18,8 +18,8 @@ try {
   throw new PDOException($e->getMessage(), (int) $e->getCode()); // for debug, otherwise use: die("Database connection failed. Please try again later.");
 }
 
-$lang = $_GET['lang'] ?? $_SESSION['lang'] ?? 'en';
-$supportedLanguages = ['en', 'fr'];
+$lang = $_GET['lang'] ?? $_POST['lang'] ?? $_SESSION['lang'] ?? 'en';
+$supportedLanguages = ['en', 'fr', 'viet'];
 if (!in_array($lang, $supportedLanguages)) {
   $lang = 'en'; // default to english
 }

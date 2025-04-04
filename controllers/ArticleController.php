@@ -16,29 +16,40 @@ class ArticleController extends BaseController
     {
         $data = $this->t->getAll();
         $ids = [1, 2];
+        $mediahive_reco = $this->articleModel->get_hot_picks() ;
+        /* foreach ($mediahive_reco as &$article) {
+            $id = $article['articleID'];
+            $keywords = $this->articleModel->article_keyword_list($id);
+            $article['keywords'] = $keywords;
+        } */
         $rssFeeds = $this->rssModel->get_RSS_Feeds($ids);
         $articles = $this->articleModel->rss_articles($rssFeeds);
+        $preferences = $this->articleModel->get_articles_preferences();
+        foreach ($preferences as &$article) {
+            $id = $article['articleID'];
+            $keywords = $this->articleModel->article_keyword_list($id);
+            $article['keywords'] = $keywords;
+        }
+        foreach ($articles as &$article) {
+            $id = $article['articleID'];
+            $keywords = $this->articleModel->article_keyword_list($id);
+            $article['keywords'] = $keywords;
+        }
         $trendingArticles = $this->articleModel->get_trending_articles();
         foreach ($trendingArticles as &$article) {
             $id = $article['articleID'];
             $keywords = $this->articleModel->article_keyword_list($id);
             $article['keywords'] = $keywords;
         }
+        $data['MediaHiveReco'] = $mediahive_reco ;
         $data['trendingArticles'] = $trendingArticles;
         $keyword_list = $this->articleModel->keywords_list();
+        shuffle($articles);
         $data['articles'] = $articles;
         $data['keyword_list'] = $keyword_list;
+        shuffle($preferences);
+        $data['preferences'] = $preferences ;
         View::render('home', $data);
-        // Une fois les articles récupérés, on insère un script pour masquer l'écran de chargement.
-        // Ce script s'exécutera lorsque le DOM sera complètement chargé.
-        echo '<script>
-            document.addEventListener("DOMContentLoaded", function() {
-                var loadScreen = document.getElementById("loading-screen");
-                if(loadScreen) {
-                    loadScreen.style.display = "none";
-                }
-            });
-          </script>';
         return;
     }
 

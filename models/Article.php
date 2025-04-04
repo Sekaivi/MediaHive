@@ -93,19 +93,11 @@ class Article extends Model
     public function get_articles()
     {
         try {
-            $sql = "SELECT articles.*, 
-            f.feedName, 
-            k.*, 
-            COUNT(al.articleID) AS popularity
-            FROM articles
-            JOIN rssfeeds AS f ON f.feedID = articles.sourceID
-            LEFT JOIN article_likes al ON articles.articleID = al.articleID
-            LEFT JOIN article_keywords AS ak ON articles.articleID = ak.articleID
-            LEFT JOIN keywords AS k ON k.keywordID = ak.keywordID
-            GROUP BY articles.articleID, f.feedName, k.keywordID
-            ORDER BY popularity DESC;
-;
-            ";
+            $sql = "SELECT a.*, f.feedName, COUNT(al.articleID) AS popularity 
+            FROM articles AS a JOIN rssfeeds AS f ON f.feedID = a.sourceID
+            LEFT JOIN article_likes AS al ON a.articleID = al.articleID
+            GROUP BY a.articleID, f.feedName
+            ORDER BY popularity DESC;";
             $rqt = $this->cnxDB->prepare($sql);
             $rqt->execute();
             $data = $rqt->fetchAll();
@@ -114,6 +106,37 @@ class Article extends Model
         }
         return $data;
     }
+
+    public function get_articles_preferences()
+    {
+        $userId = $_SESSION['user_id'] ?? null;
+        if (!$userId) {
+            return [];
+        }
+        $sql = $this->cnxDB->prepare("SELECT rss_feed FROM preferences WHERE userID = ?");
+        $sql->execute([$userId]);
+        $feedIds = $sql->fetchAll();
+
+        if (empty($feedIds)) {
+            return [];
+        }
+        $feedIds = array_map(function ($item) {
+            return $item['rss_feed'];
+        }, $feedIds);
+        $placeholders = str_repeat('?,', count($feedIds) - 1) . '?';
+        $sql = $this->cnxDB->prepare("SELECT * FROM rssfeeds WHERE feedID IN ($placeholders)");
+        $sql->execute($feedIds);
+        $feedUrls = $sql->fetchAll();
+        $this->rss_articles($feedUrls);
+
+        $sql = "SELECT a.*, rf.feedURL, rf.feedName FROM articles a JOIN rssfeeds rf ON a.sourceID = rf.feedID WHERE a.sourceID IN ($placeholders)";
+        $rqt = $this->cnxDB->prepare($sql);
+        $rqt->execute($feedIds);
+        $articles = $rqt->fetchAll();
+
+        return $articles;
+    }
+
 
     public function get_trending_articles()
     {
@@ -322,6 +345,21 @@ class Article extends Model
             return "ERROR: " . $e->getMessage();
         }
 
+    }
+
+    public function get_hot_picks()
+    {
+        try {
+            $sql = "SELECT a.* , t.review FROM articles a JOIN teamspicks t ON a.articleID = t.articlesID";
+            $rqt = $this->cnxDB->prepare($sql);
+
+            $rqt->execute([
+            ]);
+            $data = $rqt->fetchAll();
+        } catch (PDOException $e) {
+            return "PDO ERROR: " . $e->getMessage();
+        }
+        return $data;
     }
 
 }
